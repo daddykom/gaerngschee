@@ -42,8 +42,8 @@ testem.log
 /coverage
 /libpeerconnection.log
 /typings
-.nx/cache
-.nx/workspace-data
+frontend/.nx/cache
+frontend/.nx/workspace-data
 .claude/
 
 # Composer (optional - uncomment if you want to track it)

@@ -1,0 +1,16 @@
+.app-container {
+  height: 100vh;
+}
+
+mat-sidenav {
+  width: 250px;
+  background: rgb(245, 245, 245);
+}
+
+.main-content {
+  padding: 1rem;
+}
+
+mat-nav-list a.active {
+  background: rgba(0, 0, 0, 0.04);
+}

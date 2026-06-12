@@ -1,0 +1,22 @@
+{
+  "name": "Gaerngschee Backend",
+  "dockerComposeFile": ["../docker-compose.yml"],
+  "service": "backend",
+  "workspaceFolder": "/var/www/html",
+  "postStartCommand": "composer install --no-interaction",
+  "customizations": {
+    "vscode": {
+      "extensions": ["bmewburn.vscode-intelephense-client"]
+    }
+  },
+  "portsAttributes": {
+    "8080": {
+      "label": "Backend",
+      "onAutoForward": "openPreview"
+    },
+    "3306": {
+      "label": "MariaDB",
+      "onAutoForward": "silent"
+    }
+  }
+}

@@ -10,19 +10,32 @@ Projekt-Informationen für AI-Assistenten
 
 ```
 gaerngschee/
-├── backend/          # PHP Backend (Slim Framework)
+├── backend/          # PHP Backend (Slim Framework, Docker)
 ├── frontend/         # Angular Frontend
-│   └── src/
-│       ├── app/           # Komponenten, Services
-│       ├── store/         # NgRx Store
-│       │   ├── actions/   # *.actions.ts
-│       │   ├── reducers/  # *.reducer.ts
-│       │   ├── selectors/ # *.selectors.ts
-│       │   └── effects/   # *.effects.ts
-│       └── shared/        # Shared Models, Utils, Pipes
+│   ├── src/
+│   │   ├── app/
+│   │   │   ├── store/         # NgRx Store
+│   │   │   │   ├── offers/    # Offers Feature
+│   │   │   │   ├── actions/   # *.actions.ts
+│   │   │   │   ├── reducers/  # *.reducer.ts
+│   │   │   │   ├── selectors/ # *.selectors.ts
+│   │   │   │   └── effects/   # *.effects.ts
+│   │   │   ├── shared/
+│   │   │   │   ├── models/    # *.model.ts
+│   │   │   │   ├── services/   # *.service.ts
+│   │   │   │   ├── pipes/     # *.pipe.ts
+│   │   │   │   └── utils/     # *.util.ts
+│   │   │   └── app.component.ts
+│   │   ├── environments/
+│   │   └── styles.scss
+│   ├── package.json
+│   ├── angular.json
+│   ├── tsconfig.json
+│   ├── .eslintrc.json
+│   └── .prettierrc
 ├── docker/           # Docker-Konfiguration
-├── LICENSE           # MIT License
-└── README.md         # Projektdokumentation
+├── LICENSE
+└── README.md
 ```
 
 ## Datei-Patterns (Frontend)
@@ -73,7 +86,7 @@ interface OffersState {
 
 | Bereich    | Technologie        |
 |------------|--------------------|
-| Frontend   | Angular, NgRx, PrimeNG, TypeScript |
+| Frontend   | Angular, NgRx, Angular Material + CDK, TypeScript |
 | Testing    | Jest (Unit Tests)  |
 | Backend    | PHP, Slim Framework |
 | Datenbank  | MariaDB            |
@@ -121,7 +134,7 @@ export const filterPublishedOffers = (offers: Offer[]): Offer[] =>
 
 - Benutzer- und Rollenmodell
 - Workflow für Ablehnung/Rückfragen
-- Mehrsprachigkeitskonzept
+- Mehrsprachigkeitskonzept (i18n)
 - Import/Export-Möglichkeiten
 - Playwright-Setup
 - Deployment-Strategie zu Cyon
