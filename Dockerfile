@@ -1,0 +1,28 @@
+FROM php:8.3-fpm-alpine
+
+RUN apk add --no-cache \
+    nginx \
+    supervisor \
+    curl \
+    mariadb-client \
+    libzip-dev \
+    oniguruma-dev \
+    && docker-php-ext-install \
+    pdo \
+    pdo_mysql \
+    zip \
+    mbstring \
+    opcache
+
+COPY docker/nginx.conf /etc/nginx/http.d/default.conf
+COPY docker/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+COPY docker/php.ini /usr/local/etc/php/conf.d/99-custom.ini
+COPY backend/ ./
+
+WORKDIR /var/www/html
+
+RUN chown -R nginx:nginx /var/www/html
+
+EXPOSE 80
+
+CMD ["supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]

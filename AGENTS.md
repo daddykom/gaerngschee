@@ -73,7 +73,7 @@ interface OffersState {
 
 | Bereich    | Technologie        |
 |------------|--------------------|
-| Frontend   | Angular, NgRx, TypeScript |
+| Frontend   | Angular, NgRx, PrimeNG, TypeScript |
 | Testing    | Jest (Unit Tests)  |
 | Backend    | PHP, Slim Framework |
 | Datenbank  | MariaDB            |
