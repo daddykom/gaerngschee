@@ -5,7 +5,7 @@ import { provideEffects } from '@ngrx/effects';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { appRoutes } from './app.routes';
-import { OffersEffects } from './store/offers/offers.effects';
+import { offersEffects } from './store/offers/offers.effects';
 import { offersFeature } from './store/offers/offers.feature';
 
 export const appConfig: ApplicationConfig = {
@@ -14,7 +14,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(appRoutes),
     provideStore(),
     provideState(offersFeature),
-    provideEffects([OffersEffects]),
+    provideEffects(offersEffects),
     provideStoreDevtools(),
     provideAnimations(),
   ],
