@@ -13,18 +13,4 @@ export const appRoutes: Routes = [
         (m) => m.OfferListComponent
       ),
   },
-  {
-    path: 'offers/:id',
-    loadComponent: () =>
-      import('./features/offers/offer-detail/offer-detail.component').then(
-        (m) => m.OfferDetailComponent
-      ),
-  },
-  {
-    path: 'categories',
-    loadComponent: () =>
-      import('./features/categories/category-list/category-list.component').then(
-        (m) => m.CategoryListComponent
-      ),
-  },
 ];

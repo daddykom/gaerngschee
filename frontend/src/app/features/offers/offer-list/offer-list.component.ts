@@ -1,19 +1,18 @@
-import { Component, inject } from '@angular/core';
-import { AsyncPipe } from '@angular/common';
+import { Component, computed, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { OffersActions } from '../../../store/offers/offers.actions';
-import { selectAllOffers, selectOffersLoading } from '../../../store/offers/offers.selectors';
+import { selectOffers, selectOffersState } from '../../../store/offers/offers.feature';
 
 @Component({
-  imports: [AsyncPipe, MatCardModule, MatProgressSpinnerModule],
+  imports: [MatCardModule, MatProgressSpinnerModule],
   template: `
-    @if (loading$ | async) {
+    @if (loading()) {
       <mat-spinner></mat-spinner>
     } @else {
       <div class="offer-grid">
-        @for (offer of offers$ | async; track offer.id) {
+        @for (offer of offers(); track offer.id) {
           <mat-card class="offer-card">
             <mat-card-header>
               <mat-card-title>{{ offer.title }}</mat-card-title>
@@ -28,30 +27,33 @@ import { selectAllOffers, selectOffersLoading } from '../../../store/offers/offe
       </div>
     }
   `,
-  styles: [`
-    .offer-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 1rem;
-      padding: 1rem 0;
-    }
-    .offer-card {
-      margin-bottom: 0;
-    }
-    .location {
-      color: #666;
-      font-size: 0.875rem;
-    }
-    mat-spinner {
-      margin: 2rem auto;
-    }
-  `],
+  styles: [
+    `
+      .offer-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 1rem;
+        padding: 1rem 0;
+      }
+      .offer-card {
+        margin-bottom: 0;
+      }
+      .location {
+        color: #666;
+        font-size: 0.875rem;
+      }
+      mat-spinner {
+        margin: 2rem auto;
+      }
+    `,
+  ],
 })
 export class OfferListComponent {
   private store = inject(Store);
 
-  offers$ = this.store.select(selectAllOffers);
-  loading$ = this.store.select(selectOffersLoading);
+  offers = this.store.selectSignal(selectOffers);
+  state = this.store.selectSignal(selectOffersState);
+  loading = computed(() => this.state().loading);
 
   constructor() {
     this.store.dispatch(OffersActions.loadOffers());

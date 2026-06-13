@@ -47,8 +47,7 @@ gaerngschee/
 | `*.component.scss`    | Styles                            |
 | `*.service.ts`        | Angular Services                  |
 | `*.actions.ts`        | NgRx Actions                      |
-| `*.reducer.ts`         | NgRx Reducer                      |
-| `*.selectors.ts`       | NgRx Selectors                    |
+| `*.feature.ts`         | NgRx Feature (reducer + selectors)|
 | `*.effects.ts`         | NgRx Effects                      |
 | `*.model.ts`           | TypeScript Interfaces/Models      |
 | `*.util.ts`            | Pure Functions, Helper             |
@@ -61,10 +60,9 @@ store/
 ├── app.state.ts           # Root State Interface
 ├── offers/                # Feature: Angebote
 │   ├── offers.actions.ts
-│   ├── offers.reducer.ts
-│   ├── offers.selectors.ts
+│   ├── offers.feature.ts  # createFeature (reducer + selectors)
 │   ├── offers.effects.ts
-│   └── offers.state.ts    # Feature State Interface
+│   └── offers.state.ts    # Feature State Interface + initialState
 ├── categories/            # Feature: Kategorien
 │   └── ...
 └── ui/                    # UI State (Loading, Errors)
