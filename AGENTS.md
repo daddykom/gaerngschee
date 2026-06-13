@@ -123,7 +123,7 @@ interface OffersState {
 | Testing   | Jest (Unit Tests)                                 |
 | Backend   | PHP, Slim Framework                               |
 | Datenbank | MariaDB                                           |
-| Karten    | OpenFreeMap, MapLibre                             |
+| Karten     | MapLibre (Kartenanzeige), MapTiler (Adresssuche/Geocoding) |
 | Hosting   | Cyon.ch                                           |
 
 ## Plattform-Anforderungen
