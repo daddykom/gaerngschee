@@ -54,5 +54,13 @@
       "unitTestRunner": "jest"
     }
   },
-  "defaultProject": "frontend"
+  "defaultProject": "frontend",
+  "plugins": [
+    {
+      "plugin": "@nx/playwright/plugin",
+      "options": {
+        "targetName": "e2e"
+      }
+    }
+  ]
 }

@@ -1,7 +1,9 @@
+import playwright from 'eslint-plugin-playwright';
 import nx from '@nx/eslint-plugin';
 import prettier from 'eslint-config-prettier';
 
 export default [
+  playwright.configs['flat/recommended'],
   ...nx.configs['flat/base'],
   ...nx.configs['flat/typescript'],
   ...nx.configs['flat/javascript'],
@@ -47,6 +49,11 @@ export default [
   },
   {
     files: ['**/*.html'],
+    rules: {},
+  },
+  {
+    files: ['**/*.ts', '**/*.js'],
+    // Override or add rules here
     rules: {},
   },
 ];
