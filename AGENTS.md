@@ -1,183 +1,79 @@
 # AGENTS.md
 
-Projekt-Informationen für AI-Assistenten
+Project information for AI assistants. This file is an **index** - see linked documents for details.
 
-## Projektübersicht
+## Project Overview
 
-**Gratisangebote-Karte** - Open-Source-Webapplikation zur Unterstützung von Menschen mit wenig finanziellen Mitteln bei
-der Suche nach kostenlosen Angeboten, sowie zur Hilfe für einsame Menschen beim Entdecken von Aktivitäten und sozialen
-Kontakten in ihrer Region.
+**Gratisangebote-Karte** - Open-source web application helping people with limited financial means find free offers and discover activities and social contacts in their region.
 
-## Verzeichnisstruktur
+→ See: [documents/project.md](./documents/project.md)
+
+## Documentation Structure
 
 ```
 gaerngschee/
-├── backend/          # PHP Backend (Slim Framework, Docker)
-├── frontend/         # Angular Frontend
-│   ├── src/
-│   │   ├── app/
-│   │   │   ├── store/         # NgRx Store
-│   │   │   │   ├── offers/    # Offers Feature
-│   │   │   │   ├── actions/   # *.actions.ts
-│   │   │   │   ├── reducers/  # *.reducer.ts
-│   │   │   │   ├── selectors/ # *.selectors.ts
-│   │   │   │   └── effects/   # *.effects.ts
-│   │   │   ├── shared/
-│   │   │   │   ├── models/    # *.model.ts
-│   │   │   │   ├── services/   # *.service.ts
-│   │   │   │   ├── pipes/     # *.pipe.ts
-│   │   │   │   └── utils/     # *.util.ts
-│   │   │   └── app.component.ts
-│   │   ├── environments/
-│   │   └── styles.scss
-│   ├── package.json
-│   ├── angular.json
-│   ├── tsconfig.json
-│   ├── .eslintrc.json
-│   └── .prettierrc
-├── docker/           # Docker-Konfiguration
-├── LICENSE
-└── README.md
+├── AGENTS.md                    # This file (index)
+├── documents/                   # Human-readable documentation
+│   ├── project.md              # Project overview
+│   ├── directory-structure.md  # Directory layout
+│   ├── architecture.md         # Architecture decisions
+│   ├── frontend-conventions.md # Angular patterns (View/Container)
+│   └── backend-conventions.md  # PHP patterns
+└── openspec/
+    └── specs/                   # Capability specifications
 ```
 
-## Datei-Patterns (Frontend)
+## Quick Links
 
-| Pattern            | Beschreibung                       |
-|--------------------|------------------------------------|
-| `*.component.ts`   | Angular Komponenten                |
-| `*.component.html` | Angular Template                   |
-| `*.component.scss` | Styles                             |
-| `*.service.ts`     | Angular Services                   |
-| `*.actions.ts`     | NgRx Actions                       |
-| `*.feature.ts`     | NgRx Feature (reducer + selectors) |
-| `*.effects.ts`     | NgRx Effects                       |
-| `*.model.ts`       | TypeScript Interfaces/Models       |
-| `*.util.ts`        | Pure Functions, Helper             |
-| `*.pipe.ts`        | Angular Pipes                      |
+### For Humans
+- [documents/project.md](./documents/project.md) - Project goals and features
+- [documents/directory-structure.md](./documents/directory-structure.md) - File organization
+- [documents/architecture.md](./documents/architecture.md) - System architecture
+- [documents/frontend-conventions.md](./documents/frontend-conventions.md) - Angular development
+- [documents/backend-conventions.md](./documents/backend-conventions.md) - PHP development
 
-## NgRx Store-Aufbau
+### For AI Assistants
+- [openspec/specs/offers/spec.md](./openspec/specs/offers/spec.md) - Offer capability
+- [openspec/specs/categories/spec.md](./openspec/specs/categories/spec.md) - Category capability
+- [openspec/specs/map/spec.md](./openspec/specs/map/spec.md) - Map capability
+- [openspec/specs/moderation/spec.md](./openspec/specs/moderation/spec.md) - Moderation workflow
+- [openspec/specs/authentication/spec.md](./openspec/specs/authentication/spec.md) - User authentication
+- [openspec/specs/platform/spec.md](./openspec/specs/platform/spec.md) - PWA, i18n, a11y
 
-```
-store/
-├── app.state.ts           # Root State Interface
-├── offers/                # Feature: Angebote
-│   ├── offers.actions.ts
-│   ├── offers.feature.ts  # createFeature (reducer + selectors)
-│   ├── offers.effects.ts  # Functional Effects (factory pattern)
-│   └── offers.state.ts    # Feature State Interface + initialState
-├── categories/            # Feature: Kategorien
-│   └── ...
-└── ui/                    # UI State (Loading, Errors)
-    └── ...
-```
+## View/Container Pattern
 
-### Functional Effects (Factory Pattern)
+Angular components follow the View/Container pattern:
 
-Effects werden als funktionale Effects mit `createEffect` und `{ functional: true }` definiert.
-Alle Effects eines Features werden zentral über ein Array exportiert (`offersEffects = [...]`).
+| Pattern | Description |
+|---------|-------------|
+| **ViewComponent** | Pure presentation, `@Input()`/`@Output()` only, no services |
+| **ContainerComponent** | Manages state, injects Store/services, dispatches actions |
 
-```typescript
-// offers.effects.ts
-export const loadOffersEffect = createEffect(
-    (actions$ = inject(Actions), store = inject(Store), offersService = inject(OffersService)) => {
-        return actions$.pipe(
-            ofType(OffersActions.loadOffers),
-            withLatestFrom(store.select(selectCurrentPosition)),
-            switchMap(([, currentPosition]) =>
-                offersService.getOffers().pipe(
-                    map((offers) => {/* ... */
-                    }),
-                    catchError((error) => of(OffersActions.loadOffersFailure({error: error.message})))
-                )
-            )
-        );
-    },
-    {functional: true}
-);
+See: [documents/frontend-conventions.md](./documents/frontend-conventions.md#viewcontainer-pattern)
 
-export const offersEffects = [loadOffersEffect];
-```
+## OpenSpec Workflow
 
-**Registrierung in app.config.ts:**
+Use these commands to work with changes:
 
-```typescript
-provideEffects(offersEffects)
-```
+| Command | Purpose |
+|---------|---------|
+| `/opsx-explore [topic]` | Explore ideas, investigate problems |
+| `/opsx-propose <name>` | Create new change proposal |
+| `/opsx-apply [name]` | Implement change tasks |
+| `/opsx-archive [name]` | Archive completed change |
+| `/opsx-sync-specs [name]` | Sync delta specs to main specs |
 
-**State Interface Beispiel:**
+See: [openspec/specs/agents-md-workflow/spec.md](./openspec/specs/agents-md-workflow/spec.md)
 
-```typescript
-interface OffersState {
-    offers: Offer[];
-    selectedOffer: Offer | null;
-    loading: boolean;
-    error: string | null;
-}
-```
+## Active Changes
 
-## Technologiestack
+Run `openspec list --json` to see active changes.
 
-| Bereich   | Technologie                                       |
-|-----------|---------------------------------------------------|
-| Frontend  | Angular, NgRx, Angular Material + CDK, TypeScript |
-| Testing   | Jest (Unit Tests)                                 |
-| Backend   | PHP, Slim Framework                               |
-| Datenbank | MariaDB                                           |
-| Karten     | MapLibre (Kartenanzeige), MapTiler (Adresssuche/Geocoding) |
-| Hosting   | Cyon.ch                                           |
-
-## Plattform-Anforderungen
-
-- Progressive Web App (PWA)
-- Responsive Design
-- Barrierefreiheit (Accessibility First)
-- Mehrsprachigkeit
-
-## Programmierstil
-
-- **Funktionaler Stil** bevorzugt
-- Pure Functions und Immutable Data
-- Klassen nur wo frameworkbedingt nötig (Angular Components/Services)
-- Geschäftslogik in testbare pure Functions auslagern
-- Seiteneffekte klar begrenzen
-- Strenge Typisierung
-
-**Beispiel - Business Logic auslagern:**
-
-```typescript
-// BAD: Logik im Component/Service
-@Component()
-class OfferListComponent {
-    filteredOffers = this.offers.filter(o => o.status === 'published');
-}
-
-// GOOD: Logik in pure function
-export const filterPublishedOffers = (offers: Offer[]): Offer[] =>
-    offers.filter(o => o.status === 'published');
-```
-
-## Qualitätssicherung
-
-- Unit Tests für: Angular Components/Services, NgRx (Reducer/Selectors/Effects), PHP Backend, Pure Functions,
-  Validierungslogik
-- Playwright für E2E-Tests (optional, noch zu evaluieren)
-- Linting und Build-Prüfung
-- GitHub Actions für CI/CD
-
-## Noch offene Entscheidungen
-
-- Benutzer- und Rollenmodell
-- Workflow für Ablehnung/Rückfragen
-- Mehrsprachigkeitskonzept (i18n)
-- Import/Export-Möglichkeiten
-- Playwright-Setup
-- Deployment-Strategie zu Cyon
-
-## Wichtige Prinzipien
+## Key Principles
 
 - Open Source
 - Mobile First / Accessibility First
-- Datenschutzfreundlich
-- Geringe Betriebskosten
-- API-first zwischen Frontend und Backend
-- Klare Trennung der Schichten
+- Privacy-friendly
+- Low operating costs
+- API-first between Frontend and Backend
+- Clear separation of layers

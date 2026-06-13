@@ -28,6 +28,11 @@ export const {
   selectSelectedOffer,
 } = offersFeature;
 
+export const selectOffersLoading = createSelector(
+  selectOffersState,
+  (state) => state.loading,
+);
+
 export const selectCurrentPosition = createSelector(
   selectOffersState,
   (state) => state.currentPosition,

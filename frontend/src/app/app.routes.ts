@@ -9,8 +9,8 @@ export const appRoutes: Routes = [
   {
     path: 'offers',
     loadComponent: () =>
-      import('./features/offers/offer-list/offer-list.component').then(
-        (m) => m.OfferListComponent
+      import('./features/offers/offer-list/offer-list.container.component').then(
+        (m) => m.OfferListContainerComponent
       ),
   },
 ];

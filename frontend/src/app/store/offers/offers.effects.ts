@@ -42,4 +42,6 @@ export const loadOffersEffect = createEffect(
   { functional: true },
 );
 
-export const offersEffects = [loadOffersEffect];
+export const offersEffects = {
+  loadOffersEffect,
+};
