@@ -183,11 +183,6 @@ All API responses use JSON:
 }
 ```
 
-## Future: Database Integration
+## Database
 
-MariaDB integration is planned. When adding database support:
-
-1. Use PDO with prepared statements
-2. Never concatenate user input into SQL
-3. Use transactions for multi-table operations
-4. Keep models thin (business logic in services)
+See [database-conventions.md](./database-conventions.md) for MariaDB/Phinx setup and migration guidelines.

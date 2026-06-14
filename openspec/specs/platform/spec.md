@@ -52,6 +52,15 @@ Cross-cutting platform concerns: PWA, i18n, accessibility, responsive design.
 - GDPR-compliant (EU users)
 - Data export capability (for users)
 
+### F6: Database Migrations
+
+All database schema changes SHALL be managed via Phinx migrations.
+
+- All migrations stored in `backend/migrations/`
+- Migrations are reversible via `phinx rollback`
+- Environment-based database credentials
+- No direct SQL modifications in production
+
 ## Technical Requirements
 
 | Requirement | Implementation |

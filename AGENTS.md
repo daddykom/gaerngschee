@@ -30,7 +30,7 @@ gaerngschee/
 - [documents/directory-structure.md](./documents/directory-structure.md) - File organization
 - [documents/architecture.md](./documents/architecture.md) - System architecture
 - [documents/frontend-conventions.md](./documents/frontend-conventions.md) - Angular development
-- [documents/backend-conventions.md](./documents/backend-conventions.md) - PHP development
+- [documents/backend-conventions.md](./documents/backend-conventions.md) - PHP + Database development
 
 ### For AI Assistants
 - [openspec/specs/offers/spec.md](./openspec/specs/offers/spec.md) - Offer capability
@@ -38,6 +38,7 @@ gaerngschee/
 - [openspec/specs/map/spec.md](./openspec/specs/map/spec.md) - Map capability
 - [openspec/specs/moderation/spec.md](./openspec/specs/moderation/spec.md) - Moderation workflow
 - [openspec/specs/authentication/spec.md](./openspec/specs/authentication/spec.md) - User authentication
+- [openspec/specs/database/spec.md](./openspec/specs/database/spec.md) - Database migrations
 - [openspec/specs/platform/spec.md](./openspec/specs/platform/spec.md) - PWA, i18n, a11y
 
 ## View/Container Pattern
