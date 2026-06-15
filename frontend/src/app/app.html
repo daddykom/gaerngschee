@@ -1,22 +1,3 @@
-<mat-sidenav-container class="app-container">
-  <mat-sidenav mode="side" opened>
-    <mat-nav-list>
-      <a mat-list-item routerLink="/offers" routerLinkActive="active">
-        <mat-icon matListItemIcon>local_offer</mat-icon>
-        <span matListItemTitle>Angebote</span>
-      </a>
-      <a mat-list-item routerLink="/categories" routerLinkActive="active">
-        <mat-icon matListItemIcon>category</mat-icon>
-        <span matListItemTitle>Kategorien</span>
-      </a>
-    </mat-nav-list>
-  </mat-sidenav>
-  <mat-sidenav-content>
-    <mat-toolbar color="primary">
-      <span>{{ title }}</span>
-    </mat-toolbar>
-    <main class="main-content">
-      <router-outlet></router-outlet>
-    </main>
-  </mat-sidenav-content>
-</mat-sidenav-container>
+<main class="main-content">
+    <router-outlet></router-outlet>
+</main>

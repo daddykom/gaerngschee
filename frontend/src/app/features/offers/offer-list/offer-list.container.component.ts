@@ -8,11 +8,7 @@ import { Offer } from '../../../shared/models/offer.model';
 @Component({
   standalone: true,
   imports: [OfferListViewComponent],
-  template: `<app-offer-list-view
-    [offers]="offers()"
-    [loading]="loading()"
-    (cardClick)="onCardClick($event)"
-  />`,
+  templateUrl: './offer-list.container.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class OfferListContainerComponent {
