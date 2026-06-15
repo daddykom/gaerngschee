@@ -20,12 +20,13 @@ COPY docker/nginx.conf /etc/nginx/http.d/default.conf
 COPY docker/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 COPY docker/php.ini /usr/local/etc/php/conf.d/99-custom.ini
 COPY backend/ ./
+COPY db/ /var/www/db/
 
 WORKDIR /var/www/html
 
 RUN composer install --no-dev --optimize-autoloader
 
-RUN chown -R nginx:nginx /var/www/html
+RUN chown -R nginx:nginx /var/www/html /var/www/db
 
 EXPOSE 80
 

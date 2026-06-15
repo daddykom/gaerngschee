@@ -17,21 +17,26 @@ export const loadOffersEffect = createEffect(
       switchMap(([, currentPosition]) =>
         offersService.getOffers().pipe(
           map((offers) =>
-            offers.map((o) => ({
-              ...o,
-              location: {
-                latitude: o.location.latitude,
-                longitude: o.location.longitude,
-                address: o.location.address,
-              },
-              currentDistance:
-                getDistance(
-                  { latitude: currentPosition.latitude, longitude: currentPosition.longitude },
-                  { latitude: o.location.latitude, longitude: o.location.longitude },
-                ) / 1000,
-              createdAt: new Date(o.createdAt),
-              updatedAt: new Date(o.updatedAt),
-            })),
+            offers.map(
+              (o): Offer => ({
+                ...o,
+                location: {
+                  latitude: o.location.latitude,
+                  longitude: o.location.longitude,
+                  address: o.location.address,
+                },
+                currentDistance:
+                  getDistance(
+                    { latitude: currentPosition.latitude, longitude: currentPosition.longitude },
+                    { latitude: o.location.latitude, longitude: o.location.longitude },
+                  ) / 1000,
+                createdAt: new Date(o.createdAt),
+                updatedAt: new Date(o.updatedAt),
+              }),
+            ),
+          ),
+          map((offers: Offer[]) =>
+            offers.toSorted((a, b) => a.currentDistance - b.currentDistance),
           ),
           map((offers: Offer[]) => OffersActions.loadOffersSuccess({ offers })),
           catchError((error) => of(OffersActions.loadOffersFailure({ error: error.message }))),

@@ -12,7 +12,7 @@ export interface Offer {
   description: string;
   category: string;
   location: OfferLocation;
-  currentDistance: number | null;
+  currentDistance: number;
   status: 'draft' | 'published' | 'archived';
   createdAt: Date;
   updatedAt: Date;

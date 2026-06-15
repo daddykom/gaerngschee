@@ -9,7 +9,15 @@
     "test:ci": "nx test --configuration=ci",
     "e2e": "nx e2e",
     "e2e:ci": "nx e2e-ci",
-    "test:all": "nx test && nx e2e"
+    "test:all": "nx test && nx e2e",
+    "db:start": "cd .. && docker-compose up -d",
+    "db:stop": "cd .. && docker-compose down",
+    "db:migrate": "cd .. && docker compose exec -T backend vendor/bin/phinx migrate -c /var/www/db/phinx.php",
+    "db:seed": "cd .. && docker compose exec -T backend vendor/bin/phinx seed:run -e development -c /var/www/db/phinx.php",
+    "db:setup": "npm run db:start && sleep 5 && npm run db:migrate && npm run db:seed",
+    "db:reset": "npm run db:stop && npm run db:start && sleep 5 && npm run db:migrate && npm run db:seed",
+    "composer": "cd .. && docker compose exec -T backend composer install --no-interaction",
+    "composer:update": "cd .. && docker compose exec -T backend composer update --no-interaction"
   },
   "private": true,
   "dependencies": {
