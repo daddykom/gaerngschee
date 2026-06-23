@@ -1,7 +1,7 @@
-import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { OfferJson, OfferLocation } from '../../store/offers/offers.state';
+import { OfferJson } from '../../store/offers/offers.state';
 
 @Injectable({ providedIn: 'root' })
 export class OffersService {
