@@ -1,12 +1,12 @@
 import {
-  Component,
-  ChangeDetectionStrategy,
-  input,
-  output,
-  ElementRef,
-  viewChild,
   AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  input,
   OnDestroy,
+  output,
+  viewChild,
 } from '@angular/core';
 import { Offer } from '../../../shared/models/offer.model';
 import { OfferLocation } from '../../../store/offers/offers.state';
@@ -44,6 +44,7 @@ export class OfferMapViewComponent implements AfterViewInit, OnDestroy {
     });
 
     this.addMarkers(maplibregl);
+    this.addUserPositionMarker(maplibregl);
   }
 
   ngOnDestroy(): void {
@@ -62,9 +63,7 @@ export class OfferMapViewComponent implements AfterViewInit, OnDestroy {
     this.offers().forEach((offer) => {
       if (!offer.location?.latitude || !offer.location?.longitude) return;
 
-      const popup = new maplibregl.Popup({ offset: 25 }).setHTML(
-        this.createPopupContent(offer),
-      );
+      const popup = new maplibregl.Popup({ offset: 25 }).setHTML(this.createPopupContent(offer));
 
       const marker = new maplibregl.Marker()
         .setLngLat([offer.location.longitude, offer.location.latitude])
@@ -77,6 +76,22 @@ export class OfferMapViewComponent implements AfterViewInit, OnDestroy {
       marker.addTo(mapInstance);
       this.markers.push(marker);
     });
+  }
+
+  private addUserPositionMarker(maplibregl: typeof import('maplibre-gl')): void {
+    const mapInstance = this.map;
+    if (!mapInstance) return;
+
+    const el = document.createElement('div');
+    el.className = 'user-marker';
+    el.innerHTML = `
+      <div class="user-marker-pulse"></div>
+      <div class="user-marker-dot"></div>
+    `;
+
+    new maplibregl.Marker({ element: el })
+      .setLngLat([this.currentPosition().longitude, this.currentPosition().latitude])
+      .addTo(mapInstance);
   }
 
   private createPopupContent(offer: Offer): string {

@@ -44,10 +44,11 @@ Interactive map display for visualizing offers geographically.
 
 | Component | Status |
 |-----------|--------|
-| MapLibre GL JS | ○ Planned |
-| OpenFreeMap Tiles | ○ Planned |
-| Offer Markers | ○ Planned |
-| Popup Display | ○ Planned |
+| MapLibre GL JS | ✓ Implemented |
+| OpenFreeMap Tiles | ✓ Implemented |
+| Offer Markers | ✓ Implemented |
+| Popup Display | ✓ Implemented |
+| User Position Marker | ✓ Implemented |
 | User Position Detection | ✗ Not implemented |
 | Address Search | ✗ Not implemented |
 | MapTiler Integration | ✗ Not implemented |
