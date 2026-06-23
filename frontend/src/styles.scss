@@ -11,6 +11,14 @@ $gaerngschee-theme: mat.define-theme((
 
 html {
   @include mat.all-component-themes($gaerngschee-theme);
+  overflow: hidden;
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  overflow: hidden;
+  height: 100%;
 }
 
 @import 'maplibre-gl/dist/maplibre-gl.css';
