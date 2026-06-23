@@ -31,6 +31,8 @@ jobs:
         working-directory: frontend
       - run: npx nx build
         working-directory: frontend
+      - run: npx playwright install
+        working-directory: frontend
       - run: npx nx e2e
         working-directory: frontend
 
