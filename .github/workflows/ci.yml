@@ -67,7 +67,9 @@ jobs:
             composer-
       - run: composer install --no-interaction --prefer-dist
         working-directory: backend
-      - run: vendor/bin/phinx migrate -e test -c ../db/phinx.php
+      - run: composer install --no-interaction --prefer-dist
+        working-directory: backend
+      - run: sleep 5 && DB_HOST=127.0.0.1 vendor/bin/phinx migrate -e test -c ../db/phinx.php
         working-directory: backend
       - run: vendor/bin/phpunit
         working-directory: backend
