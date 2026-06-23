@@ -18,4 +18,11 @@ export const appRoutes: Routes = [
         (m) => m.OfferListContainerComponent,
       ),
   },
+  {
+    path: 'offers/map',
+    loadComponent: () =>
+      import('./features/offers/offer-map/offer-map.container.component').then(
+        (m) => m.OfferMapContainerComponent,
+      ),
+  },
 ];

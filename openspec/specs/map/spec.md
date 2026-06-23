@@ -8,7 +8,7 @@ Interactive map display for visualizing offers geographically.
 
 | Component     | Technology        |
 |---------------|-------------------|
-| Map Client    | MapLibre GL       |
+| Map Client    | MapLibre GL JS    |
 | Map Tiles     | OpenFreeMap       |
 | Geocoding     | MapTiler          |
 | Coordinates   | Longitude/Latitude|
@@ -44,9 +44,10 @@ Interactive map display for visualizing offers geographically.
 
 | Component | Status |
 |-----------|--------|
-| MapLibre Integration | ✗ Not implemented |
-| OpenFreeMap Tiles | ✗ Not implemented |
-| Offer Markers | ✗ Not implemented |
+| MapLibre GL JS | ○ Planned |
+| OpenFreeMap Tiles | ○ Planned |
+| Offer Markers | ○ Planned |
+| Popup Display | ○ Planned |
 | User Position Detection | ✗ Not implemented |
 | Address Search | ✗ Not implemented |
 | MapTiler Integration | ✗ Not implemented |

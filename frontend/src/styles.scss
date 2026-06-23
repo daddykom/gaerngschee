@@ -12,3 +12,5 @@ $gaerngschee-theme: mat.define-theme((
 html {
   @include mat.all-component-themes($gaerngschee-theme);
 }
+
+@import 'maplibre-gl/dist/maplibre-gl.css';

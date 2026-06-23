@@ -1,0 +1,33 @@
+:host {
+  display: block;
+  height: calc(100vh - 64px);
+}
+
+.map-container {
+  height: 100%;
+  width: 100%;
+}
+
+::ng-deep .offer-popup {
+  padding: 8px;
+
+  h4 {
+    margin: 0 0 8px 0;
+    font-size: 16px;
+  }
+
+  .category-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    background-color: #e0e0e0;
+    border-radius: 4px;
+    font-size: 12px;
+    margin-bottom: 8px;
+  }
+
+  p {
+    margin: 0;
+    font-size: 14px;
+    color: #666;
+  }
+}
