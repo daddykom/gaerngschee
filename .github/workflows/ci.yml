@@ -1,0 +1,78 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [ main ]
+  push:
+    branches: [ main ]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  frontend:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - run: npm ci --no-audit
+        working-directory: frontend
+      - run: npm run lint
+        working-directory: frontend
+      - run: npx tsc --noEmit -p tsconfig.app.json
+        working-directory: frontend
+      - run: npm run test:ci
+        working-directory: frontend
+      - run: npx nx build
+        working-directory: frontend
+      - run: npx playwright install
+        working-directory: frontend
+      # E2E tests skipped: require backend server with database
+      # - run: npx nx e2e
+      #   working-directory: frontend
+
+  backend:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    services:
+      mariadb:
+        image: mariadb:11
+        env:
+          MARIADB_ROOT_PASSWORD: root
+          MARIADB_DATABASE: gaerngschee_test
+          MARIADB_USER: app
+          MARIADB_PASSWORD: app
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="healthcheck.sh --connect --innodb_initialized"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.3"
+          coverage: xdebug
+      - uses: actions/cache@v4
+        with:
+          path: backend/vendor
+          key: composer-${{ hashFiles('backend/composer.lock') }}
+          restore-keys: |
+            composer-
+      - run: composer install --no-interaction --prefer-dist
+        working-directory: backend
+      - run: composer install --no-interaction --prefer-dist
+        working-directory: backend
+      - run: sleep 5 && DB_HOST=127.0.0.1 DB_USER=root DB_PASS=root DB_TEST_NAME=gaerngschee_test vendor/bin/phinx migrate -e test -c ../db/phinx.php
+        working-directory: backend
+      - run: vendor/bin/phpunit
+        working-directory: backend

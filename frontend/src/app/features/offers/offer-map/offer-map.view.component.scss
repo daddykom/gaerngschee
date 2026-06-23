@@ -1,0 +1,75 @@
+:host {
+  display: block;
+  height: calc(100vh - 64px);
+}
+
+.map-container {
+  height: 100%;
+  width: 100%;
+}
+
+::ng-deep .offer-popup {
+  padding: 8px;
+
+  h4 {
+    margin: 0 0 8px 0;
+    font-size: 16px;
+  }
+
+  .category-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    background-color: #e0e0e0;
+    border-radius: 4px;
+    font-size: 12px;
+    margin-bottom: 8px;
+  }
+
+  p {
+    margin: 0;
+    font-size: 14px;
+    color: #666;
+  }
+}
+
+::ng-deep .user-marker {
+  position: relative;
+  width: 24px;
+  height: 24px;
+}
+
+::ng-deep .user-marker-dot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 16px;
+  height: 16px;
+  background: #4285f4;
+  border: 3px solid white;
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+::ng-deep .user-marker-pulse {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 32px;
+  height: 32px;
+  background: rgba(66, 133, 244, 0.3);
+  border-radius: 50%;
+  animation: pulse 2s ease-out infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: translate(-50%, -50%) scale(0.5);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1.5);
+    opacity: 0;
+  }
+}

@@ -8,13 +8,19 @@ Categories allow filtering and organizing offers by type.
 
 | Category    | German      | Description                        |
 |-------------|-------------|------------------------------------|
-| `essen`     | Essen       | Free food, food banks, meals       |
-| `freizeit`  | Freizeit    | Leisure activities, recreation     |
-| `kultur`    | Kultur      | Cultural events, museums, concerts |
-| `sport`     | Sport       | Sports activities, fitness         |
-| `beratung`  | Beratung    | Counseling, social services        |
-| `treffpunkte` | Treffpunkte | Meeting places, social gatherings |
+| `kleidung`  | Kleidung    | Clothing, textiles                 |
+| `buecher`   | Bücher      | Books, magazines, reading          |
+| `aktivitaeten` | Aktivitäten | Activities, events              |
+| `essen`     | Essen       | Food, meals, groceries             |
 | `bildung`   | Bildung     | Education, courses, workshops      |
+| `sport`     | Sport       | Sports activities, fitness         |
+| `moebel`    | Möbel       | Furniture, household items         |
+| `soziales`  | Soziales    | Social services, community         |
+| `mobilitaet` | Mobilität  | Transportation, bikes, rides       |
+| `freizeit`  | Freizeit    | Leisure, games, hobbies            |
+| `tiere`     | Tiere       | Pets, animal supplies              |
+| `technik`   | Technik     | Technology, computers, repairs     |
+| `garten`    | Garten      | Garden, plants, outdoor            |
 
 ## Features
 
@@ -48,14 +54,13 @@ interface Category {
 
 | Component | Status |
 |-----------|--------|
-| Category Model | ✗ Not implemented |
-| NgRx Store | ✗ Not implemented |
+| Category Model | ✓ Implemented |
+| NgRx Store | ✓ Implemented |
 | Category List Component | ✓ Implemented (empty) |
 | Category Filtering | ✗ Not implemented |
 | API Endpoint | ✗ Not implemented |
 
 ## Notes
 
-- Hardcoded list in README.md
-- No dedicated category API or store yet
-- Component exists but is empty
+- Categories are seeded from `db/seeds/production/InitialCategorySeeder.php`
+- Category IDs match the JSON data format for compatibility

@@ -9,26 +9,33 @@ Separate pure presentation (View) from stateful logic (Container).
 ### ViewComponent
 
 - **Pure** - no side effects
-- Receives data via `@Input()`
-- Emits events via `@Output()`
+- Receives data via **signal inputs** (`input()`)
+- Emits events via **signal outputs** (`output()`)
 - No service injections
 - No direct store access
+- Uses Angular 21 control flow (`@if`, `@for`, `@switch`, `@defer`)
 
 ```typescript
 @Component({
   selector: 'app-offer-list-view',
   standalone: true,
-  template: `
-    <div class="offer-list">
-      @for (offer of offers(); track offer.id) {
-        <app-offer-card [offer]="offer" (cardClick)="onCardClick.emit($event)" />
-      }
-    </div>
-  `
+  templateUrl: './offer-list-view.component.html',
 })
 export class OfferListViewComponent {
-  @Input() offers: Offer[] = [];
-  @Output() cardClick = new EventEmitter<Offer>();
+  offers = input<Offer[]>([]);
+  loading = input<boolean>(false);
+  cardClick = output<Offer>();
+}
+```
+
+**Template (`offer-list-view.component.html`):**
+```html
+@if (loading()) {
+  <mat-spinner></mat-spinner>
+} @else {
+  @for (offer of offers(); track offer.id) {
+    <app-offer-card [offer]="offer" (cardClick)="cardClick.emit($event)" />
+  }
 }
 ```
 
@@ -36,9 +43,9 @@ export class OfferListViewComponent {
 
 - **Impure** - manages state
 - Injects NgRx Store and services
-- Selects state via selectors
+- Selects state via **selectSignal()** (signals-based)
 - Dispatches actions
-- Passes data to View via `@Input()`
+- Passes data to View via **signal inputs** (`input()`)
 
 ```typescript
 @Component({
@@ -49,7 +56,8 @@ export class OfferListViewComponent {
 export class OfferListContainerComponent {
   private store = inject(Store);
 
-  offers = toSignal(this.store.select(selectOffers));
+  offers = this.store.selectSignal(selectOffers);
+  loading = this.store.selectSignal(selectOffersLoading);
 
   onCardClick(offer: Offer) {
     this.store.dispatch(OfferActions.selectOffer({ offer }));
@@ -57,12 +65,30 @@ export class OfferListContainerComponent {
 }
 ```
 
+### Signal Inputs (Required)
+
+ViewComponents **must** use Angular's signal-based inputs instead of `@Input()`:
+
+```typescript
+// GOOD - Signal inputs
+offers = input<Offer[]>([]);
+loading = input<boolean>(false);
+cardClick = output<Offer>();
+
+// BAD - @Input() decorator
+@Input() offers: Offer[] = [];
+@Input() loading = false;
+@Output() cardClick = new EventEmitter<Offer>();
+```
+
+**Rule:** Signals are preferred in components. For store access, use `selectSignal()` instead of `store.select()`. Effects must use RxJS Observables (this is intentional and correct).
+
 ## File Patterns
 
 | Pattern | Description |
 |---------|-------------|
 | `*.component.ts` | Angular components |
-| `*.component.html` | Component templates |
+| `*.component.html` | Component templates (always use separate file, never inline) |
 | `*.component.scss` | Component styles |
 | `*.service.ts` | Angular services |
 | `*.actions.ts` | NgRx actions |

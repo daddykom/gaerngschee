@@ -9,7 +9,16 @@
     "test:ci": "nx test --configuration=ci",
     "e2e": "nx e2e",
     "e2e:ci": "nx e2e-ci",
-    "test:all": "nx test && nx e2e"
+    "lint": "nx lint --all",
+    "test:all": "nx test && nx e2e",
+    "db:start": "cd .. && docker-compose up -d",
+    "db:stop": "cd .. && docker-compose down",
+    "db:migrate": "cd .. && docker compose exec -T backend vendor/bin/phinx migrate -c /var/www/db/phinx.php",
+    "db:seed": "cd .. && docker compose exec -T backend vendor/bin/phinx seed:run -e development -c /var/www/db/phinx.php",
+    "db:setup": "npm run db:start && sleep 5 && npm run db:migrate && npm run db:seed",
+    "db:reset": "npm run db:stop && npm run db:start && sleep 5 && npm run db:migrate && npm run db:seed",
+    "composer": "cd .. && docker compose exec -T backend composer install --no-interaction",
+    "composer:update": "cd .. && docker compose exec -T backend composer update --no-interaction"
   },
   "private": true,
   "dependencies": {
@@ -24,10 +33,12 @@
     "@angular/platform-browser-dynamic": "~21.2.0",
     "@angular/router": "~21.2.0",
     "@angular/service-worker": "^21.2.17",
+    "@maplibre/ngx-maplibre-gl": "^21.0.2",
     "@ngrx/effects": "^21.1.1",
     "@ngrx/store": "^21.1.1",
     "@ngrx/store-devtools": "^21.1.1",
     "geolib": "^3.3.14",
+    "maplibre-gl": "^5.24.0",
     "rxjs": "~7.8.0"
   },
   "devDependencies": {
@@ -67,6 +78,7 @@
     "nx": "22.7.5",
     "playwright": "^1.60.0",
     "prettier": "~3.6.2",
+    "prettier-plugin-organize-imports": "^4.3.0",
     "ts-jest": "^29.4.0",
     "ts-node": "10.9.1",
     "tslib": "^2.3.0",

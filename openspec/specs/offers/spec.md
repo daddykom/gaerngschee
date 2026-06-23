@@ -2,7 +2,7 @@
 
 ## Overview
 
-The offers capability is the core of the application. It enables users to find free offers (Essen, Freizeit, Kultur, Sport, Beratung, Treffpunkte, Bildung) on a map or in a list view.
+The offers capability is the core of the application. It enables users to find free offers (Kleidung, Bücher, Aktivitäten, Essen, Bildung, Sport, Möbel, Soziales, Mobilität, Freizeit, Tiere, Technik, Garten) on a map or in a list view.
 
 ## Entities
 
@@ -34,8 +34,8 @@ interface ContactInfo {
   phone?: string;
 }
 
-type OfferStatus = 'draft' | 'published' | 'archived';
-type CategoryType = 'essen' | 'freizeit' | 'kultur' | 'sport' | 'beratung' | 'treffpunkte' | 'bildung';
+type OfferStatus = 'draft' | 'pending' | 'published' | 'archived';
+type CategoryType = 'kleidung' | 'buecher' | 'aktivitaeten' | 'essen' | 'bildung' | 'sport' | 'moebel' | 'soziales' | 'mobilitaet' | 'freizeit' | 'tiere' | 'technik' | 'garten';
 ```
 
 ## Features
@@ -112,7 +112,7 @@ interface OffersState {
 | Offer Model | ✓ Implemented |
 | NgRx Store | ✓ Implemented |
 | Offer List Component | ✓ Implemented |
-| GET /api/offers | ✓ Implemented (JSON) |
+| GET /api/offers | ✓ Implemented (MariaDB) |
 | Other CRUD endpoints | ✗ Not implemented |
 | Map View | ✗ Not implemented |
 | Offer Form | ✗ Not implemented |
@@ -120,6 +120,6 @@ interface OffersState {
 
 ## Notes
 
-- Currently using JSON file as data source (no database)
+- Data source: MariaDB database (migrated from JSON)
 - Status filtering not yet implemented in API
 - Coordinates are placeholders (Münsterplatz, Basel default)

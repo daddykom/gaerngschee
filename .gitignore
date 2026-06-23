@@ -36,6 +36,10 @@ npm-debug.log
 yarn-error.log
 testem.log
 
+# Coverage
+/coverage/
+frontend/coverage/
+
 # Misc
 /.sass-cache
 /connect.lock
