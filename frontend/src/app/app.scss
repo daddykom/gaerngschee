@@ -21,7 +21,7 @@ mat-toolbar {
 
 .header-title {
   font-size: 1.2rem;
-  
+
   @media (max-width: 480px) {
     display: none;
   }
@@ -42,10 +42,34 @@ mat-toolbar {
   @media (max-width: 768px) {
     display: inline-flex;
   }
+  overflow: hidden;
 }
 
 mat-sidenav {
   width: 250px;
+  background: rgb(245, 245, 245);
+}
+
+h1 {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 1rem;
+  font-size: 1.5rem;
+  background: white;
+}
+
+.header-logo {
+  height: 40px;
+  width: auto;
+}
+
+.main-content {
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  height: calc(100% - 73px);
 }
 
 mat-nav-list a.active {
