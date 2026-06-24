@@ -16,6 +16,8 @@ Open-Source-Webapplikation zur Unterstützung von Menschen mit wenig finanzielle
 | [moderation](./moderation/spec.md) | Editorial workflow | Not started |
 | [authentication](./authentication/spec.md) | User auth and roles | Not started |
 | [platform](./platform/spec.md) | PWA, i18n, a11y, infrastructure | Not started |
+| [deployment](./deployment/spec.md) | CI/CD deployment to test server | In progress |
+| [ui-header-menu](./ui-header-menu/spec.md) | Header with burger menu navigation | Complete |
 
 ---
 
