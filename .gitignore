@@ -38,6 +38,7 @@ testem.log
 
 # Coverage
 /coverage/
+**/coverage/
 frontend/coverage/
 
 # Misc
